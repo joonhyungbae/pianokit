@@ -1,0 +1,4 @@
+pianokit_web/
+__pycache__/
+*.pyc
+.DS_Store
