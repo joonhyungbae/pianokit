@@ -65,7 +65,6 @@ python -m pip install --upgrade pip
 python -m pip install \
   basic-pitch \
   pretty_midi midi2audio mido \
-  demucs \
   pillow
 
 WEB_DIR="${SCRIPT_DIR}/pianokit_web"
@@ -95,10 +94,13 @@ Setup complete.
 How to use:
 1) Activate env:
    conda activate pianokit
-2) Open notebooks:
-   jupyter lab
-3) In Jupyter, select kernel:
-   Python (pianokit)
+2) Open notebooks in order:
+   01_listen.ipynb       -> 기반: AI가 내 연주를 듣다
+   02_visualize.ipynb    -> 확장형·시각: 내 연주가 눈에 보이다
+   03_expand.ipynb       -> 확장형·음악: 내 연주를 변주하다
+   04_collaborate.ipynb  -> 협업형: AI와 대화하다
+   05_stage.ipynb        -> 통합: 무대 위에서
+3) In Jupyter, select kernel: Python (pianokit)
 4) Start the workshop web app:
    ./web.sh
 

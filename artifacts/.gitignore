@@ -1,0 +1,11 @@
+# Generated artifacts — do not commit
+# These are reproducible from notebooks given assets/*.wav
+midi/*.mid
+analysis/*.json
+cues/*.json
+responses/*
+performance_timeline.json
+
+# Keep directory structure
+!.gitignore
+!README.md
