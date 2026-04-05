@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ENV_NAME="pianokit"
-PYTHON_VERSION="3.10"
+PYTHON_VERSION="3.12"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${SCRIPT_DIR}"
@@ -46,7 +46,7 @@ echo "Installing base packages from conda-forge..."
 run_conda install -y -c conda-forge \
   jupyterlab notebook ipykernel ipywidgets \
   numpy scipy pandas matplotlib \
-  librosa pysoundfile ffmpeg fluidsynth git \
+  librosa pysoundfile ffmpeg fluidsynth portaudio git \
   nodejs
 
 if [[ "${GPU_MODE}" == "gpu" ]] && command -v nvidia-smi >/dev/null 2>&1; then
@@ -65,7 +65,9 @@ python -m pip install --upgrade pip
 python -m pip install \
   basic-pitch \
   pretty_midi midi2audio mido \
-  pillow
+  pillow \
+  "matchmaker @ git+https://github.com/pymatchmaker/matchmaker.git" \
+  fastapi "uvicorn[standard]" websockets
 
 WEB_DIR="${SCRIPT_DIR}/pianokit_web"
 if [[ -f "${WEB_DIR}/package-lock.json" ]]; then
@@ -96,9 +98,8 @@ How to use:
    conda activate pianokit
 2) Open notebooks in order:
    01_listen.ipynb       -> 기반: AI가 내 연주를 듣다
-   02_visualize.ipynb    -> 확장형·시각: 내 연주가 눈에 보이다
-   03_expand.ipynb       -> 확장형·음악: 내 연주를 변주하다
-   04_collaborate.ipynb  -> 협업형: AI와 대화하다
+   02_visualize.ipynb    -> 확장: 내 연주가 눈에 보이다
+   04_collaborate.ipynb  -> 협업: AI가 내 연주를 실시간 추적
    05_stage.ipynb        -> 통합: 무대 위에서
 3) In Jupyter, select kernel: Python (pianokit)
 4) Start the workshop web app:
