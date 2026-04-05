@@ -1,10 +1,13 @@
-# Generated artifacts — do not commit
-# These are reproducible from notebooks given assets/*.wav
-midi/*.mid
+# Generated artifacts — large/reproducible outputs are ignored
 analysis/*.json
 cues/*.json
 responses/*
+alignment/*.json
 performance_timeline.json
+
+# Pre-computed MIDI (Basic Pitch output) is committed
+# so that NB02+ can run without NB01
+# midi/*.mid  ← tracked
 
 # Keep directory structure
 !.gitignore
