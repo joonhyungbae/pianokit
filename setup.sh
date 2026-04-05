@@ -12,50 +12,78 @@ if ! command -v conda >/dev/null 2>&1; then
   exit 1
 fi
 
+# Some conda activation/deactivation hooks reference unset variables.
+# Keep nounset for our script, but temporarily relax it around conda shell code.
+set +u
 eval "$(conda shell.bash hook)"
+set -u
 
-GPU_MODE="auto"
+run_conda() {
+  set +u
+  conda "$@"
+  local status=$?
+  set -u
+  return $status
+}
+
+GPU_MODE="gpu"
 if [[ "${1:-}" == "--cpu" ]]; then
   GPU_MODE="cpu"
 elif [[ "${1:-}" == "--gpu" ]]; then
   GPU_MODE="gpu"
 fi
 
-if conda run -n "${ENV_NAME}" python -c "print('ok')" >/dev/null 2>&1; then
+if run_conda run -n "${ENV_NAME}" python -c "print('ok')" >/dev/null 2>&1; then
   echo "Conda env '${ENV_NAME}' already exists. Reusing it."
 else
   echo "Creating conda env '${ENV_NAME}' (python=${PYTHON_VERSION})..."
-  conda create -y -n "${ENV_NAME}" "python=${PYTHON_VERSION}" pip
+  run_conda create -y -n "${ENV_NAME}" "python=${PYTHON_VERSION}" pip
 fi
 
-conda activate "${ENV_NAME}"
+run_conda activate "${ENV_NAME}"
 
 echo "Installing base packages from conda-forge..."
-conda install -y -c conda-forge \
+run_conda install -y -c conda-forge \
   jupyterlab notebook ipykernel ipywidgets \
   numpy scipy pandas matplotlib \
-  librosa soundfile ffmpeg fluidsynth git
+  librosa pysoundfile ffmpeg fluidsynth git \
+  nodejs
 
-if [[ "${GPU_MODE}" == "gpu" ]] || { [[ "${GPU_MODE}" == "auto" ]] && command -v nvidia-smi >/dev/null 2>&1; }; then
+if [[ "${GPU_MODE}" == "gpu" ]] && command -v nvidia-smi >/dev/null 2>&1; then
   echo "Installing GPU PyTorch stack..."
-  conda install -y -c pytorch -c nvidia pytorch torchvision torchaudio pytorch-cuda=12.1
+  run_conda install -y -c pytorch -c nvidia pytorch torchvision torchaudio pytorch-cuda=12.1
 else
+  if [[ "${GPU_MODE}" == "gpu" ]]; then
+    echo "GPU mode requested but nvidia-smi was not found. Falling back to CPU PyTorch stack..."
+  fi
   echo "Installing CPU PyTorch stack..."
-  conda install -y -c pytorch pytorch torchvision torchaudio cpuonly
+  run_conda install -y -c pytorch pytorch torchvision torchaudio cpuonly
 fi
 
-echo "Installing pip packages for all notebooks..."
+echo "Installing pip packages for current workshop notebooks..."
 python -m pip install --upgrade pip
 python -m pip install \
   basic-pitch \
-  pretty_midi midi2audio \
+  pretty_midi midi2audio mido \
   demucs \
-  audiocraft \
-  diffusers transformers accelerate safetensors bitsandbytes sentencepiece \
-  einops \
-  imageio imageio-ffmpeg \
-  opencv-python pillow \
-  tqdm
+  pillow
+
+WEB_DIR="${SCRIPT_DIR}/pianokit_web"
+if [[ -f "${WEB_DIR}/package-lock.json" ]]; then
+  echo "Installing web dependencies with npm ci..."
+  (
+    cd "${WEB_DIR}"
+    npm ci
+  )
+elif [[ -f "${WEB_DIR}/package.json" ]]; then
+  echo "Installing web dependencies with npm install..."
+  (
+    cd "${WEB_DIR}"
+    npm install
+  )
+else
+  echo "Skipping web dependency install: package.json not found."
+fi
 
 echo "Registering Jupyter kernel..."
 python -m ipykernel install --user --name "${ENV_NAME}" --display-name "Python (${ENV_NAME})"
@@ -71,10 +99,12 @@ How to use:
    jupyter lab
 3) In Jupyter, select kernel:
    Python (pianokit)
+4) Start the workshop web app:
+   ./web.sh
 
 Options:
-- ./setup.sh        # auto detect GPU (nvidia-smi 기준)
-- ./setup.sh --gpu  # force GPU stack
+- ./setup.sh        # prefer GPU, fallback to CPU if unavailable
+- ./setup.sh --gpu  # same as default, explicit GPU preference
 - ./setup.sh --cpu  # force CPU stack
 
 EOF

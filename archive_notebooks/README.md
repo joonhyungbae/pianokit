@@ -1,13 +1,15 @@
 # Archived Notebooks
 
-These notebooks are kept for reference, but they are no longer part of the main 2026 workshop flow.
+These notebooks are kept for reference, but they are no longer part of the main workshop flow.
 
 Archived items:
-- `03_text_to_music.ipynb`
-- `06_video_generation.ipynb`
-- `07_image_generation.ipynb`
+- `text_to_music.ipynb`
+- `melody_conditioning.ipynb`
+- `audio_reactive.ipynb`
+- `video_generation.ipynb`
+- `image_generation.ipynb`
 
 Reason:
-- The main workshop now focuses on the pianist's own performance as the starting point.
-- The core flow is now `extract -> variation -> reaction`.
-- Text-to-music and non-realtime visual generation remain useful as side references, not main-session material.
+- The main workshop now uses only the root notebooks `01` to `04`.
+- The current core flow is `start -> overview -> expansive -> collaborative -> wrap-up`.
+- Text-to-music, melody conditioning, audio-reactive generation, and non-realtime image/video generation remain side references rather than main-session material.
