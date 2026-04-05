@@ -66,8 +66,9 @@ python -m pip install \
   basic-pitch \
   pretty_midi midi2audio mido \
   pillow \
-  "matchmaker @ git+https://github.com/pymatchmaker/matchmaker.git" \
-  fastapi "uvicorn[standard]" websockets
+  pymatchmaker \
+  fastapi "uvicorn[standard]" websockets \
+  sounddevice pyfluidsynth
 
 WEB_DIR="${SCRIPT_DIR}/pianokit_web"
 if [[ -f "${WEB_DIR}/package-lock.json" ]]; then
@@ -99,7 +100,7 @@ How to use:
 2) Open notebooks in order:
    01_listen.ipynb       -> 기반: AI가 내 연주를 듣다
    02_visualize.ipynb    -> 확장: 내 연주가 눈에 보이다
-   04_collaborate.ipynb  -> 협업: AI가 내 연주를 실시간 추적
+   04_collaborate.ipynb  -> 협업: AI 반주자와 함께 연주하다
    05_stage.ipynb        -> 통합: 무대 위에서
 3) In Jupyter, select kernel: Python (pianokit)
 4) Start the workshop web app:
