@@ -1,0 +1,19 @@
+{
+  "session_id": "satie_real_somax_v1",
+  "piece": "satie",
+  "phrase_boundaries": [
+    {
+      "phrase_id": "phrase_01",
+      "start_time": 0.0,
+      "end_time": 49.150000000000055
+    }
+  ],
+  "style_profile_candidates": [
+    "warm_legato",
+    "percussive_edge",
+    "ambient_tail"
+  ],
+  "style_metadata_file": "/home/jhbae/pianokit/artifacts/collab_rave/style_metadata.json",
+  "consumes_contract_version": "1.0.0",
+  "nb05_merge_hint": "Merge into performance_timeline.json with key collab_stage_extension"
+}

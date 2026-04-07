@@ -2,3 +2,4 @@ pianokit_web/
 __pycache__/
 *.pyc
 .DS_Store
+artifacts/models/rave/*.ts

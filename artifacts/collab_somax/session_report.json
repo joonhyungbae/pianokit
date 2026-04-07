@@ -1,0 +1,106 @@
+{
+  "session_id": "satie_session_v2",
+  "piece": "satie",
+  "winner": "candidate_conductor",
+  "winner_score": {
+    "score": 85.125,
+    "collisions": 2,
+    "density": 1.6875,
+    "range_violations": 0
+  },
+  "choose_mode": "manual",
+  "manual_choice": "candidate_conductor",
+  "discussion_rounds": 2,
+  "discussion_history": [
+    {
+      "round": 1,
+      "scores": {
+        "candidate_conductor": {
+          "score": 85.125,
+          "collisions": 2,
+          "density": 1.6875,
+          "range_violations": 0
+        },
+        "candidate_improviser": {
+          "score": 47.5625,
+          "collisions": 10,
+          "density": 2.5,
+          "range_violations": 0
+        }
+      }
+    },
+    {
+      "round": 2,
+      "scores": {
+        "candidate_conductor": {
+          "score": 85.125,
+          "collisions": 2,
+          "density": 1.6875,
+          "range_violations": 0
+        },
+        "candidate_improviser": {
+          "score": 61.25,
+          "collisions": 7,
+          "density": 2.0625,
+          "range_violations": 0
+        }
+      }
+    }
+  ],
+  "candidate_scores": {
+    "candidate_conductor": {
+      "score": 85.125,
+      "collisions": 2,
+      "density": 1.6875,
+      "range_violations": 0
+    },
+    "candidate_improviser": {
+      "score": 61.25,
+      "collisions": 7,
+      "density": 2.0625,
+      "range_violations": 0
+    }
+  },
+  "context": {
+    "start_time": 0.2545454545454545,
+    "end_time": 16.254545454545454,
+    "density": 3.3125,
+    "register_centroid": 57.56603773584906,
+    "tempo_proxy": 197.61047934360155
+  },
+  "phrase_boundaries": [
+    {
+      "phrase_id": "phrase_01",
+      "start_time": 0.2545454545454545,
+      "end_time": 16.334090909090907
+    }
+  ],
+  "tempo_map": [
+    {
+      "time": 0.2545454545454545,
+      "tempo_bpm": 197.61047934360155
+    }
+  ],
+  "agent_actions": [
+    {
+      "agent": "ConductorAgent",
+      "action": "stability",
+      "reason": "반복/구조 유지"
+    },
+    {
+      "agent": "ConductorAgent",
+      "action": "register_balance",
+      "reason": "중심 음역 보정"
+    },
+    {
+      "agent": "Arbiter",
+      "action": "select_winner",
+      "reason": "학생 수동 선택 또는 점수 기반 자동 선택"
+    }
+  ],
+  "selection_reason": "student_manual_choice",
+  "style_profile": "warm_legato",
+  "render_version": "mock-rave-v1",
+  "source_audio": "assets/satie_gymnopedie_no1.wav",
+  "output_midi": "artifacts/collab_somax/session_satie_session_v2.mid"
+}

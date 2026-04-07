@@ -1,0 +1,35 @@
+{
+  "session_id": "satie_real_somax_v1",
+  "piece": "satie",
+  "input_source": "/home/jhbae/pianokit/artifacts/collab_somax/session_satie_real_somax_v1.wav",
+  "render_version": "rave-real-v1",
+  "styles": {
+    "warm_legato": {
+      "file": "/home/jhbae/pianokit/artifacts/collab_rave/satie_warm_legato.wav",
+      "stats": {
+        "duration_sec": 51.919818594104306,
+        "centroid_mean": 2252.814188745073,
+        "rms_mean": 0.0042115869000554085
+      },
+      "model_path": "artifacts/models/rave/organ_bach_b2048_r48000_z16.ts"
+    },
+    "percussive_edge": {
+      "file": "/home/jhbae/pianokit/artifacts/collab_rave/satie_percussive_edge.wav",
+      "stats": {
+        "duration_sec": 51.96625850340136,
+        "centroid_mean": 1612.2237968469958,
+        "rms_mean": 0.008823673240840435
+      },
+      "model_path": "artifacts/models/rave/mrp_strengjavera_b2048_r44100_z16.ts"
+    },
+    "ambient_tail": {
+      "file": "/home/jhbae/pianokit/artifacts/collab_rave/satie_ambient_tail.wav",
+      "stats": {
+        "duration_sec": 51.919818594104306,
+        "centroid_mean": 2906.713915734071,
+        "rms_mean": 0.0047169458121061325
+      },
+      "model_path": "artifacts/models/rave/water_pondbrain_b2048_r48000_z16.ts"
+    }
+  }
+}

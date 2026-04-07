@@ -1,0 +1,41 @@
+{
+  "contract_version": "1.0.0",
+  "description": "Somax-RAVE collaboration data contract for notebook prototypes.",
+  "paths": {
+    "somax_output_dir": "artifacts/collab_somax",
+    "rave_output_dir": "artifacts/collab_rave"
+  },
+  "required_fields": {
+    "piece": "string",
+    "tempo_map": [
+      {
+        "time": "number",
+        "tempo_bpm": "number"
+      }
+    ],
+    "phrase_boundaries": [
+      {
+        "phrase_id": "string",
+        "start_time": "number",
+        "end_time": "number"
+      }
+    ],
+    "agent_actions": [
+      {
+        "agent": "ConductorAgent|ImproviserAgent|Arbiter",
+        "action": "string",
+        "reason": "string"
+      }
+    ],
+    "style_profile": "warm_legato|percussive_edge|ambient_tail|custom",
+    "render_version": "string"
+  },
+  "defaults": {
+    "render_version": "mock-rave-v1",
+    "style_profiles": [
+      "warm_legato",
+      "percussive_edge",
+      "ambient_tail"
+    ]
+  }
+}

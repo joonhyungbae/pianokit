@@ -48,6 +48,21 @@
 | [03_expand.ipynb](03_expand.ipynb) | **확장형 · 음악** | 규칙 기반 MIDI 변환 (반전·역행·이조·재화성화) |
 | [04_collaborate.ipynb](04_collaborate.ipynb) | **협업형** | AI 해석 피드백 + 시각 매핑 제안 (학생이 비교·판단) |
 | [05_stage.ipynb](05_stage.ipynb) | **통합** | 타임라인 편집, 미니 공연 구성, 웹 앱 연동 |
+| [06_somax_collab.ipynb](06_somax_collab.ipynb) | **협업형 · Somax Real** | 실제 `somax` 런타임으로 협업 MIDI/WAV 생성 + 세션 리포트 |
+| [07_rave_collab.ipynb](07_rave_collab.ipynb) | **협업형 · RAVE Real** | 실제 RAVE 모델로 스타일 렌더 + Stage 확장 메타데이터 생성 |
+
+### 신규 협업 트랙 (NB06-NB07)
+
+- NB06은 실제 `somax` Python 패키지 런타임으로 코퍼스를 구성하고 협업 MIDI/WAV를 생성합니다.
+- NB07은 실제 RAVE TorchScript(`.ts`) 모델을 로드해 프로파일별 렌더를 수행합니다.
+- NB07의 `RAVE_MODEL_PATHS`에 실제 모델 경로를 지정하면 바로 실행할 수 있습니다.
+- 두 노트북의 입출력 계약은 `artifacts/collab_contract.json`을 기준으로 유지됩니다.
+
+### Stage 확장 접점
+
+- NB06 출력 `artifacts/collab_somax/session_report.json`은 `piece`, `phrase_boundaries`, `tempo_map`, `agent_actions`를 포함합니다.
+- NB07 출력 `artifacts/collab_rave/stage_extension.json`은 `style_profile_candidates`, `style_metadata_file`를 포함합니다.
+- 필요 시 `05_stage.ipynb`에서 위 JSON을 읽어 `performance_timeline.json`의 커스텀 키로 병합해 `/stage` 라우트에서 활용할 수 있습니다.
 
 ## 두 축의 의미
 
@@ -92,14 +107,18 @@ assets/*.wav
   └→ NB01 ─→ artifacts/midi/, artifacts/analysis/
              ├→ NB02 ─→ artifacts/cues/
              ├→ NB03 ─→ artifacts/responses/*.mid
-             └→ NB04 ─→ artifacts/responses/*_interpretive.md, mapping_suggestions.json
+             ├→ NB04 ─→ artifacts/responses/*_interpretive.md, mapping_suggestions.json
+             ├→ NB06 ─→ artifacts/collab_somax/session_*.mid, session_report.json
+             └→ NB07 ─→ artifacts/collab_rave/*.wav, style_metadata.json, stage_extension.json
                         └→ NB05 ─→ artifacts/performance_timeline.json
                                     └→ pianokit_web/public/stage_data/ (→ /stage 라우트)
 ```
 
-각 노트북은 이전 단계 산출물에 의존합니다. 번호 순서대로 실행하세요.
+권장 실행 경로:
+- 기본 트랙: `NB01 -> NB02 -> NB03/04 -> NB05`
+- 협업 생성 트랙: `NB06 -> NB07 -> NB05`
 
-## 웹 앱 공연 모드
+## 웹 앱 모드
 
 ```bash
 cd pianokit_web
@@ -107,7 +126,9 @@ npm install
 npm run dev
 ```
 
-`http://localhost:5173/stage` 에서 풀스크린 공연:
-- Satie/Prokofiev 전환
-- 프리셋 매핑 3종 + AI 제안 매핑
-- 실시간 p5.js WEBGL 장면
+- `http://localhost:5173/` : 워크숍 운영 홈
+- `http://localhost:5173/workshop/intro` : 수업 오리엔테이션
+- `http://localhost:5173/workshop/nb06` : NB06 단계 (Somax 생성)
+- `http://localhost:5173/workshop/nb07` : NB07 단계 (RAVE 렌더)
+- `http://localhost:5173/workshop/nb05` : NB05 단계 (Stage 통합)
+- `http://localhost:5173/stage` : 풀스크린 시연 뷰어

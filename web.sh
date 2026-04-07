@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEB_DIR="${SCRIPT_DIR}/pianokit_web"
-WEB_PORT="${WEB_PORT:-43197}"
+WEB_PORT="${WEB_PORT:-47653}"
 
 if [[ ! -d "${WEB_DIR}" ]]; then
   echo "Error: '${WEB_DIR}' directory not found." >&2
