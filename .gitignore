@@ -1,5 +1,42 @@
-pianokit_web/
+# Web
+pianokit_web/node_modules/
+pianokit_web/dist/
+pianokit_web/.vite/
+
+# Python
 __pycache__/
 *.pyc
-.DS_Store
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+
+# Large model files
 artifacts/models/rave/*.ts
+assets/soundfonts/
+PianistTransformer/models/
+ScorePerformer/
+
+# Generated artifacts (re-creatable)
+artifacts/collab_somax/*.wav
+artifacts/collab_rave/*.wav
+artifacts/accompaniment/*.wav
+artifacts/bach_846_original_salamander.wav
+
+# Large web assets (hosted separately or re-creatable)
+pianokit_web/public/stage_data/*.wav
+pianokit_web/public/figures/*.png
+pianokit_web/public/figures/*.svg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
